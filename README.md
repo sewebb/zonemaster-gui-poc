@@ -1,48 +1,47 @@
-# Astro Starter Kit: Basics
+# Zonemaster POC
 
-```sh
-npm create astro@latest -- --template basics
-```
+This is a proof of concept for the refresh of the Zonemaster GUI.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Goals
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The updated Zonemaster GUI will achieve the following:
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+1. **Enhanced Customizability**\
+   Allow users to tailor the GUI to their specific needs, including themes, layouts, and configurable options.
+2. **Modernized Architecture**\
+Transition from a Single Page Application (SPA) to a Static Multi-Page Application (MPA) architecture to improve performance, SEO, and maintainability.
+3. **Standalone Component Support**\
+Develop reusable, standalone components that can be integrated into other projects, enabling wider adoption and flexibility.
 
-## 🚀 Project Structure
+## Current Architecture
 
-Inside of your Astro project, you'll see the following folders and files:
+The current Zonemaster GUI is a Single Page Application (SPA) built with AngularJS. It is a monolithic application with a single codebase and a single entry point.
+It has limited customizability and is not easily extensible. Since it's an SPA, it has performance and SEO limitations as well.
+Furthermore it's bigger, in terms of bundle size, than it needs to be.
+For localization it uses XLIFF files.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Summary of the current architecture:
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+- **Framework**: AngularJS
+- **Architecture**: Single Page Application (SPA)
+- **Customizability**: Limited
+- **Extensibility**: Limited
+- **Localization**: XLIFF files
+- **CSS Framework**: Custom
 
-## 🧞 Commands
+## Proposed Architecture
 
-All commands are run from the root of the project, from a terminal:
+The proposed architecture for the updated Zonemaster GUI is a Static Multi-Page Application (MPA) built with Astro.
+Svelte will be the UI framework of choice for building the components. Svelte is a lightweight, reactive framework that compiles to highly optimized vanilla JavaScript. It also has built in support for Web Components, which will allow us to create standalone components that can be integrated into other projects.
+For localization it will use Inlang which uses JSON files.
+As the application is quite small, we will keep a custom CSS framework. Storybook will be added to that to make it easier to develop, document and test components.
+Furthermore we will expose CSS variables to make it easier to change the look and feel of the application.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Summary of the proposed architecture:
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **Framework**: Astro
+- **Architecture**: Static Multi-Page Application (MPA)
+- **Customizability**: High via CSS variables and standalone components
+- **Extensibility**: High via standalone components
+- **Localization**: Inlang
+- **CSS Framework**: Custom with CSS variables and Storybook
