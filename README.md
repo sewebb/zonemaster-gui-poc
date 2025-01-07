@@ -45,3 +45,32 @@ Summary of the proposed architecture:
 - **Extensibility**: High via standalone components
 - **Localization**: Inlang
 - **CSS Framework**: Custom with CSS variables and Storybook
+
+## Main differences
+
+The current solution offers distributed CSS and JS files that you include together with an <app-root> tag in your HTML.
+For customizability you have two options:
+
+* Set a config with logo, languages etc. This config is loaded via an HTTP request.
+* Use custom CSS to override the default CSS. This is the way to use if you need to hide elements.
+
+While this makes it easy to get started, it's not very flexible. You can't change the layout or add new elements without changing the source code.
+Another downside is that you get a loading state for the whole application while the JS and config is loading.
+
+The proposed solution builds a static site that you can host on any server. It does not rely on external configuration, instead you clone and build the site yourself.
+This might not sound as user friendly, but it gives you full control over the site. You can change the layout, add new elements and even change the language without changing the source code.
+It's as easy as:
+
+```bash
+git clone ...
+npm install
+npm run build
+```
+
+Out comes a full static html site that you can host on any server.
+Configs are used so you can touch as little of the source code as possible. You can change the logo, languages, theme and more by editing a single file.
+
+Alternatively you have 2 more options:
+
+1. Headless mode. A test agent that you can use together with your own frontend.
+2. Standalone components. You can use the components in your own frontend. Like <zm-domain-test />
