@@ -1,5 +1,8 @@
 ---
 import { languageTag } from "../paraglide/runtime";
+import Header from '../components/Header.astro';
+import Content from '../components/Content.astro';
+import '../styles/site.css';
 ---
 <!doctype html>
 <html lang={languageTag()} dir={Astro.locals.paraglide.dir}>
@@ -11,6 +14,9 @@ import { languageTag } from "../paraglide/runtime";
 		<title>Astro Basics</title>
 	</head>
 	<body>
-		<slot />
+		<Header />
+    <Content>
+      <slot />
+    </Content>
 	</body>
 </html>

@@ -2,8 +2,6 @@
 import { defineConfig } from 'astro/config';
 import paraglide from '@inlang/paraglide-astro';
 
-import tailwind from '@astrojs/tailwind';
-
 import svelte from '@astrojs/svelte';
 
 // https://astro.build/config
@@ -18,7 +16,6 @@ export default defineConfig({
 			project: './project.inlang',
 			outdir: './src/paraglide'
 		}),
-		tailwind(),
 		svelte()
 	]
 });

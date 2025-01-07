@@ -1,4 +1,9 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"welcome": "Tervetuloa Zonemasteriin"
+	"startTestNav": "Suorita testi",
+	"faqNav": "UKK",
+	"welcome": "Tervetuloa Zonemasteriin",
+  "startTestTitle": "Suorita verkkotunnus testi",
+  "runTestTitle": "Test your domain",
+	"faqTitle": "Usein kysytyt kysymykset (FAQ)"
 }
