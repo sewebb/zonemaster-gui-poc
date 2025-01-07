@@ -1,6 +1,4 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-
   type Props = {
     type?: string;
     size?: 'small' | 'large';
@@ -21,6 +19,8 @@
 
 <style>
   .zm-input {
+    all: unset;
+    box-sizing: border-box;
     display: block;
     height: var(--input-height);
     padding: 0 var(--spacing-s);

@@ -5,6 +5,7 @@
     type?: 'button' | 'submit' | 'reset';
     variant?: 'primary' | 'secondary' | 'danger';
     size?: 'small' | 'large';
+    disabled?: boolean;
     children?: Snippet;
     onClick?: null;
   };
@@ -14,6 +15,7 @@
     variant = 'primary',
     size = 'large',
     onClick,
+    disabled,
     children
   }: Props = $props();
 </script>
@@ -22,6 +24,7 @@
   type={type}
   class="zm-button ${variant} ${size}"
   onclick={onClick}
+  disabled={disabled}
 >
   {@render children?.()}
 </button>

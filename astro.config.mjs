@@ -6,16 +6,22 @@ import svelte from '@astrojs/svelte';
 
 // https://astro.build/config
 export default defineConfig({
-	i18n: {
-		locales: ['da', 'en', 'es', 'fi', 'fr', 'nb', 'sv'],
-		defaultLocale: 'en'
-	},
-	integrations: [
-		paraglide({
-			// recommended settings
-			project: './project.inlang',
-			outdir: './src/paraglide'
-		}),
-		svelte()
-	]
+  outDir: './public',
+  publicDir: './static',
+  i18n: {
+    locales: ['da', 'en', 'es', 'fi', 'fr', 'nb', 'sv'],
+    defaultLocale: 'en'
+  },
+  integrations: [
+    paraglide({
+      // recommended settings
+      project: './project.inlang',
+      outdir: './src/paraglide'
+    }),
+    svelte({
+      compilerOptions: {
+        customElement: true
+      }
+    })
+  ]
 });

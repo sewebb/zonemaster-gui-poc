@@ -1,17 +1,28 @@
+<svelte:options customElement="zm-domain-test" />
 <script lang="ts">
   import Button from '../Button/Button.svelte';
   import Input from '../Input/Input.svelte';
+  import TestAgent from '../../TestAgent';
 
+  let currentState = $state(TestAgent.state);
   let domain = $state('');
 
-  function startTest(e) {
+  function startTest(e: Event) {
     e.preventDefault();
-    console.log('Starting test with domain:', domain);
+    TestAgent.dispatch('startTest', { domain });
   }
+
+  $effect(() => {
+    TestAgent.on('transition', (s: string) => {
+      currentState = s;
+    });
+  });
 </script>
 <form novalidate onsubmit={startTest} class="zm-domain-test">
   <Input type="text" bind:value={domain} placeholder="Domain" />
-  <Button type="submit">Start Test</Button>
+  <Button type="submit" disabled={currentState !== 'IDLE'}>
+    {currentState === 'IDLE' ? 'Start Test' : 'Testing...'}
+  </Button>
 </form>
 
 <style>

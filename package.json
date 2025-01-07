@@ -7,12 +7,15 @@
     "build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide && astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "lib:build": "vite build",
+    "lib:demo": "vite serve demo -c vite.config.js",
     "postinstall": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "dependencies": {
     "@astrojs/svelte": "^7.0.3",
+    "@bleckert/state": "^0.3.0",
     "@inlang/paraglide-astro": "^0.3.3",
     "astro": "^5.1.2",
     "svelte": "^5.16.2",
@@ -29,9 +32,11 @@
     "@storybook/svelte-vite": "^8.4.7",
     "@storybook/test": "^8.4.7",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tsconfig/svelte": "^5.0.4",
     "prettier": "^3.4.2",
     "prettier-plugin-svelte": "^3.3.2",
-    "prettier-plugin-tailwindcss": "^0.6.9",
-    "storybook": "^8.4.7"
+    "storybook": "^8.4.7",
+    "svelte-check": "^4.1.1",
+    "vite": "^6.0.7"
   }
 }
