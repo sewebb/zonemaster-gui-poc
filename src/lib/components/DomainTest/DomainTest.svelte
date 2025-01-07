@@ -31,5 +31,7 @@
     border: 1px solid var(--color-palette-main-30);
     border-radius: var(--border-radius);
     padding: var(--spacing-default);
+    display: flex;
+    gap: 1rem;
   }
 </style>
