@@ -1,76 +1,141 @@
 # Zonemaster POC
 
-This is a proof of concept for the refresh of the Zonemaster GUI.
+This is a **proof of concept** for the refresh of the Zonemaster GUI. The goal is to modernize the architecture, improve flexibility, and enable broader usability through standalone components and a more modular approach.
+
+---
 
 ## Goals
 
 The updated Zonemaster GUI will achieve the following:
 
-1. **Enhanced Customizability**\
-   Allow users to tailor the GUI to their specific needs, including themes, layouts, and configurable options.
-2. **Modernized Architecture**\
-Transition from a Single Page Application (SPA) to a Static Multi-Page Application (MPA) architecture to improve performance, SEO, and maintainability.
-3. **Standalone Component Support**\
-Develop reusable, standalone components that can be integrated into other projects, enabling wider adoption and flexibility.
+1. **Enhanced Customizability**
+  - Allow users to tailor the GUI to their specific needs, including themes, layouts, and configurable options.
+  - Expose CSS variables for quick and easy look-and-feel changes.
+
+2. **Modernized Architecture**
+  - Transition from a **Single Page Application (SPA)** to a **Static Multi-Page Application (MPA)** architecture.
+  - Improve performance, SEO, and maintainability.
+  - Eliminate dependency on external configurations.
+
+3. **Standalone Component Support**
+  - Develop reusable components (e.g., `<zm-domain-test />`) that can be easily integrated into other projects or used standalone.
+  - Offer a **headless mode** (e.g., a test agent for custom UI development).
+
+---
 
 ## Current Architecture
 
-The current Zonemaster GUI is a Single Page Application (SPA) built with AngularJS. It is a monolithic application with a single codebase and a single entry point.
-It has limited customizability and is not easily extensible. Since it's an SPA, it has performance and SEO limitations as well.
-Furthermore it's bigger, in terms of bundle size, than it needs to be.
-For localization it uses XLIFF files.
+The current Zonemaster GUI is a **Single Page Application (SPA)** built with AngularJS. While functional, it has several limitations:
 
-Summary of the current architecture:
+- **Monolithic Design**: A single, tightly coupled codebase with limited extensibility.
+- **Performance Issues**: Larger-than-necessary bundle sizes and loading delays due to reliance on external configurations.
+- **SEO Challenges**: SPAs inherently have poor SEO unless extra workarounds are implemented.
+- **Limited Customizability**: Customization requires overriding CSS or modifying source code.
 
+**Current architecture summary**:
 - **Framework**: AngularJS
 - **Architecture**: Single Page Application (SPA)
-- **Customizability**: Limited
-- **Extensibility**: Limited
 - **Localization**: XLIFF files
-- **CSS Framework**: Custom
+- **CSS Framework**: Custom with limited flexibility
+
+---
 
 ## Proposed Architecture
 
-The proposed architecture for the updated Zonemaster GUI is a Static Multi-Page Application (MPA) built with Astro.
-Svelte will be the UI framework of choice for building the components. Svelte is a lightweight, reactive framework that compiles to highly optimized vanilla JavaScript. It also has built in support for Web Components, which will allow us to create standalone components that can be integrated into other projects.
-For localization it will use Inlang which uses JSON files.
-As the application is quite small, we will keep a custom CSS framework. Storybook will be added to that to make it easier to develop, document and test components.
-Furthermore we will expose CSS variables to make it easier to change the look and feel of the application.
+The proposed Zonemaster GUI will adopt a **Static Multi-Page Application (MPA)** architecture built with **Astro**. This shift addresses the shortcomings of the current solution by focusing on performance, maintainability, and flexibility.
 
-Summary of the proposed architecture:
+### Key aspects of the new architecture:
 
+1. **Framework**
+  - Use **Astro** for generating a static site with fast load times and SEO-friendly pages.
+  - Build UI components with **Svelte**, a lightweight framework known for its optimized performance and built-in Web Component support.
+
+2. **Static Site**
+  - The site will be generated as fully static HTML, deployable on any server.
+  - No reliance on external configurations or runtime loading delays.
+
+3. **Standalone Components**
+  - Components like `<zm-domain-test />` can be used independently in other projects.
+  - Enable integration via modern JavaScript modules, e.g., `import { TestAgent } from '.../agent.js';`.
+
+4. **Localization**
+  - Switch to **Inlang** with JSON files for a streamlined localization process.
+
+5. **Customizability**
+  - Expose CSS variables for theming and styling.
+  - Introduce a **config file** for modifying settings like logo, languages, and theme without changing source code.
+
+6. **Tooling**
+  - Add **Storybook** for developing, documenting, and testing components.
+
+**Proposed architecture summary**:
 - **Framework**: Astro
 - **Architecture**: Static Multi-Page Application (MPA)
-- **Customizability**: High via CSS variables and standalone components
-- **Extensibility**: High via standalone components
-- **Localization**: Inlang
+- **Customizability**: High via CSS variables and configs
+- **Localization**: Inlang with JSON files
 - **CSS Framework**: Custom with CSS variables and Storybook
 
-## Main differences
+---
 
-The current solution offers distributed CSS and JS files that you include together with an <app-root> tag in your HTML.
-For customizability you have two options:
+## Key Differences
 
-* Set a config with logo, languages etc. This config is loaded via an HTTP request.
-* Use custom CSS to override the default CSS. This is the way to use if you need to hide elements.
+| Aspect               | Current Solution                          | Proposed Solution                     |
+|-----------------------|-------------------------------------------|---------------------------------------|
+| **Architecture**      | SPA (AngularJS)                          | Static MPA (Astro + Svelte)           |
+| **Customizability**   | Limited via external config and CSS       | High via config, CSS variables, and components |
+| **Performance**       | Relies on runtime loading                | Fully pre-rendered static HTML        |
+| **SEO**               | Limited SEO support                     | Fully SEO-friendly static pages       |
+| **Extensibility**     | Minimal, requires source modification     | High, supports standalone components  |
+| **Localization**      | XLIFF files                              | Inlang with JSON                      |
 
-While this makes it easy to get started, it's not very flexible. You can't change the layout or add new elements without changing the source code.
-Another downside is that you get a loading state for the whole application while the JS and config is loading.
+---
 
-The proposed solution builds a static site that you can host on any server. It does not rely on external configuration, instead you clone and build the site yourself.
-This might not sound as user friendly, but it gives you full control over the site. You can change the layout, add new elements and even change the language without changing the source code.
-It's as easy as:
+## Example Use Cases
 
+### Scenario 1: Full Static Site
+You want the entire Zonemaster GUI with a custom look and feel.
+
+**Steps**:
+1. Clone the repository:
 ```bash
-git clone ...
-npm install
-npm run build
+  git clone ...
+  npm install
+```
+2. Edit the configuration file to customize the logo, theme, and language.
+3. Build the static site:
+```bash
+  npm run build
 ```
 
-Out comes a full static html site that you can host on any server.
-Configs are used so you can touch as little of the source code as possible. You can change the logo, languages, theme and more by editing a single file.
+### Scenario 2: Standalone Component
 
-Alternatively you have 2 more options:
+You only need the domain testing form.
 
-1. Headless mode. A test agent that you can use together with your own frontend.
-2. Standalone components. You can use the components in your own frontend. Like <zm-domain-test />
+```sveltehtml
+<zm-domain-test />
+<script type="module" defer src="https://zonemaster.se/esm/components.js"></script>
+```
+
+### Scenario 3: Build Your Own Form
+
+You want to integrate domain testing into your custom frontend using the test agent.
+
+```javascript
+<script type="module">
+  import { TestAgent } from 'https://zonemaster.se/esm/agent.js';
+
+  TestAgent.on('progress', (data) => console.log('Progress:', data));
+  TestAgent.on('result', (result) => console.log('Result:', result));
+
+  document.querySelector('button').addEventListener('click', () => {
+    TestAgent.dispatch('startTest', { domain: 'example.com' });
+  });
+</script>
+```
+
+## Advantages of the New Architecture
+
+1. **Flexibility**: Easily customize or extend functionality without modifying the source code.
+2. **Performance**: Faster load times and smaller bundle sizes.
+3. **SEO**: Fully pre-rendered pages for better visibility.
+4. **Modularity**: Standalone components can be reused across projects.
